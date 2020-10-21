@@ -10,7 +10,7 @@
       </select>
      
        <b> Municipio </b>
-       <select  name="selectedMunicipio" id="selectedMunicipio" [(ngModel)]="selectedMunicipio">
+       <select  name="selectedMunicipio" id="selectedMunicipio" [(ngModel)]="selectedMunicipio" (change)="changeMunicipio()">
         <option *ngFor="let mun of arrMunicipios; let i = index" [value]="mun.idmunicipio">
           {{mun.municipio}}
         </option>
@@ -23,8 +23,24 @@
           {{uni.descripcion}}
         </option>
       </select>
-      {{selectedUnidad}}
+
       <button (click)="buscarDenues()" type=”button”>Buscar</button>
+
+      <b> Localidad </b>
+       <select  name="selectedLocalidad" id="selectedLocalidad" [(ngModel)]="selectedLocalidad">
+        <option *ngFor="let loc of arrLocalidades; let i = index" [value]="loc.idlocalidad">
+          {{loc.localidad}}
+        </option>
+      </select>
+      
+      <b> TipoPoblacion </b>
+       <select  name="selectedTipoPob" id="selectedTipoPob" [(ngModel)]="selectedTipoPob">
+        <option *ngFor="let tipo of arrTipoPob; let i = index" [value]="tipo.id">
+          {{tipo.tipo}}
+        </option>
+      </select>
+
+      <button (click)="buscarPoblacion()" type=”button”>Buscar</button>
 
 </label>
 </div>

@@ -29,10 +29,27 @@ export class MapComponent implements AfterViewInit {
 
   selectedEstado;
   selectedMunicipio;
+  selectedLocalidad;
+  selectedTipoPob;
   selectedUnidad;
 
   arrEstados = [];
   arrMunicipios = [];
+  arrLocalidades = [];
+  arrTipoPob = [
+    {
+      id: 0,
+      tipo: "total"
+    },
+    {
+      id: 1,
+      tipo: "hombres"
+    },
+    {
+      id: 2,
+      tipo: "mujeres"
+    }
+  ];
   arrActividades = [];
 
   constructor(private markerService: MarkerService,
@@ -65,6 +82,7 @@ export class MapComponent implements AfterViewInit {
  {
   this.dataApiService.getEstados().subscribe((estados: any) => {
     this.arrEstados = estados;
+    
    });
  
  }
@@ -82,7 +100,15 @@ export class MapComponent implements AfterViewInit {
    this.dataApiService.getMunicipios(this.selectedEstado)
    .subscribe((municipios: any) => {
     this.arrMunicipios = municipios;
+   });
+ 
+ }
 
+ private changeMunicipio()
+ {
+   this.dataApiService.getLocalidad(this.selectedMunicipio, this.selectedEstado)
+   .subscribe((localidades: any) => {
+    this.arrLocalidades = localidades;
    });
  
  }
@@ -95,6 +121,18 @@ export class MapComponent implements AfterViewInit {
     this.selectedEstado,
     this.selectedMunicipio,
     this.selectedUnidad
+    );
+
+ }
+
+ private buscarPoblacion()
+ {
+
+  this.markerService.makePoblacionMarkers(this.map,
+    this.selectedEstado,
+    this.selectedMunicipio,
+    this.selectedLocalidad,
+    this.selectedTipoPob
     );
 
  }
